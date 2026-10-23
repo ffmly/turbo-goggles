@@ -148,6 +148,7 @@ download_file() {
     if [[ -f "$destination" && "$FORCE_DOWNLOAD" -eq 0 ]]; then
         log "INFO" "Fichier deja present: $(basename "$destination")"
         verify_file "$destination" "$expected_sha"
+        chmod a-w "$destination"
         return
     fi
 

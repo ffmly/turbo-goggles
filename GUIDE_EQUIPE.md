@@ -60,15 +60,22 @@ si necessaire.
 
 Regles d'analyse :
 
-1. utiliser uniquement les soumissions germinales qui contribuent a la
-   classification agregee ;
-2. conserver `Pathogenic`, `Likely pathogenic` et
-   `Pathogenic/Likely pathogenic` ;
-3. si des soumissions HCM du meme `VariationID` portent des classifications
-   incompatibles, exclure ce variant du classement principal ;
-4. normaliser `SubmittedGeneSymbol` (espaces, casse et valeurs manquantes) ;
-5. exclure du classement les variants sans symbole de gene exploitable ;
-6. compter chaque paire `VariationID`-gene une seule fois, meme si plusieurs
+1. utiliser uniquement les soumissions HCM qui contribuent a la
+   classification ; `OriginCounts` est conserve pour la tracabilite mais ne
+   sert pas de filtre, car certaines anciennes soumissions ont la valeur
+   `germline:na` ;
+2. considerer comme positives uniquement les classifications normalisees
+   `Pathogenic`, `Likely pathogenic` et `Pathogenic/Likely pathogenic` ;
+3. regrouper toutes les soumissions HCM contributives par `VariationID` : le
+   variant doit avoir au moins une classification positive et aucune autre
+   classification contributive ;
+4. si un meme `VariationID` a une classification positive et une
+   classification discordante, l'exclure du classement principal et le noter
+   dans le fichier des conflits ;
+5. normaliser `SubmittedGeneSymbol` (espaces, casse et valeurs manquantes) ;
+6. exclure du classement les variants sans symbole de gene exploitable ou
+   attribues a plusieurs symboles distincts ;
+7. compter chaque `VariationID` une seule fois dans son gene, meme si plusieurs
    laboratoires ont soumis le meme variant.
 
 Fichiers de sortie obligatoires :
