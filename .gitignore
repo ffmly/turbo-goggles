@@ -1,0 +1,15 @@
+data/raw/*
+data/processed/*
+logs/*
+results/*
+tmp/*
+
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!logs/.gitkeep
+!results/.gitkeep
+!tmp/.gitkeep
+
+__pycache__/
+*.py[cod]
+.venv/
