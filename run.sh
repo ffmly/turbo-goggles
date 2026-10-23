@@ -97,7 +97,6 @@ load_config() {
 
     local required_vars=(
         CLINVAR_RELEASE
-        VARIANT_FILENAME VARIANT_URL VARIANT_SHA256
         SUBMISSION_FILENAME SUBMISSION_URL SUBMISSION_SHA256
     )
     local variable
@@ -107,9 +106,7 @@ load_config() {
 }
 
 validate_config_ready() {
-    [[ "$VARIANT_SHA256" != TODO_* ]] || die "VARIANT_SHA256 doit etre complete par l'etudiant 2 dans config/dataset.env."
     [[ "$SUBMISSION_SHA256" != TODO_* ]] || die "SUBMISSION_SHA256 doit etre complete par l'etudiant 2 dans config/dataset.env."
-    [[ "$VARIANT_SHA256" =~ ^[[:xdigit:]]{64}$ ]] || die "VARIANT_SHA256 doit contenir exactement 64 caracteres hexadecimaux."
     [[ "$SUBMISSION_SHA256" =~ ^[[:xdigit:]]{64}$ ]] || die "SUBMISSION_SHA256 doit contenir exactement 64 caracteres hexadecimaux."
 }
 
@@ -178,7 +175,6 @@ run_shell_filter() {
 }
 
 run_python_analysis() {
-    local variant_file="$1"
     local analysis_script="$PROJECT_ROOT/scripts/analyze_genes.py"
     local filtered_file="$PROCESSED_DIR/hcm_submissions.tsv"
 
@@ -187,7 +183,6 @@ run_python_analysis() {
     log "INFO" "Analyse Python et creation des resultats"
     "$PYTHON_CMD" "$analysis_script" \
         --submissions "$filtered_file" \
-        --variants "$variant_file" \
         --output-dir "$RESULTS_DIR" \
         --top "$TOP_N"
 }
@@ -218,7 +213,6 @@ print_plan() {
 Version ClinVar : $CLINVAR_RELEASE
 Configuration   : $CONFIG_FILE
 Donnees         :
-  - $VARIANT_URL
   - $SUBMISSION_URL
 Etapes          : telechargement -> verification -> filtrage Shell -> analyse Python -> archive
 Top genes       : $TOP_N
@@ -268,13 +262,11 @@ resolve_python
 
 log "INFO" "Demarrage du pipeline ClinVar $CLINVAR_RELEASE"
 
-variant_path="$RAW_DIR/$VARIANT_FILENAME"
 submission_path="$RAW_DIR/$SUBMISSION_FILENAME"
 
-download_file "$VARIANT_URL" "$variant_path" "$VARIANT_SHA256"
 download_file "$SUBMISSION_URL" "$submission_path" "$SUBMISSION_SHA256"
 run_shell_filter "$submission_path"
-run_python_analysis "$variant_path"
+run_python_analysis
 archive_results
 
 log "OK" "Pipeline termine avec succes."

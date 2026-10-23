@@ -11,29 +11,25 @@
 5. A_COMPLETER
 
 **Titre du projet :** Analyse des variants genetiques pathogenes associes a la
-cardiomyopathie hypertrophique dans ClinVar.
+cardiomyopathie hypertrophique dans les soumissions ClinVar.
 
 **Maladie et question :** Cardiomyopathie hypertrophique. Parmi les variants
-genetiques distincts classes « Pathogenic » ou « Likely pathogenic »
-specifiquement pour la cardiomyopathie hypertrophique dans ClinVar, quels genes
-en concentrent le plus ?
+distincts rapportes dans ClinVar pour la cardiomyopathie hypertrophique et
+classes « Pathogenic » ou « Likely pathogenic », quels genes sont les plus
+representes ?
 
-**Jeu de donnees :** base publique NCBI ClinVar, version archivee d'octobre
-2026, composee de deux exports complementaires :
+**Jeu de donnees :** base publique NCBI ClinVar, export archive d'octobre 2026 :
+`submission_summary_2026-10.txt.gz`.
 
-- `variant_summary_2026-10.txt.gz` :
-  https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/archive/variant_summary_2026-10.txt.gz
-  (environ 450,7 Mo compresses) ;
-- `submission_summary_2026-10.txt.gz` :
-  https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/archive/submission_summary_2026-10.txt.gz
-  (environ 394,2 Mo compresses).
+**Lien :**
+https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/archive/submission_summary_2026-10.txt.gz
 
-**Taille totale telechargee :** environ 844,9 Mo au format compresse `.gz`.
+**Taille telechargee :** environ 394,2 Mo au format compresse `.gz`.
 
 **Date de telechargement :** 23/10/2026 (a confirmer par l'etudiant 2).
 
-**Methode prevue :** `submission_summary` permettra de verifier que la
-classification concerne specifiquement la cardiomyopathie hypertrophique. Le
-fichier sera relie a `variant_summary` par `VariationID` pour identifier le
-gene. Les classifications contradictoires seront signalees separement. Chaque
-paire `VariationID`-gene sera comptee une seule fois.
+**Methode prevue :** les champs de phenotype permettront de verifier que chaque
+soumission concerne specifiquement la cardiomyopathie hypertrophique. Les
+classifications contradictoires seront signalees separement. Les genes seront
+obtenus depuis `SubmittedGeneSymbol` et chaque paire `VariationID`-gene sera
+comptee une seule fois.

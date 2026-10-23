@@ -26,9 +26,9 @@ Fichiers a completer :
 
 Travail demande :
 
-1. verifier les deux URLs ClinVar et la version d'octobre 2026 ;
+1. verifier l'URL ClinVar et la version d'octobre 2026 ;
 2. noter la taille exacte et la date de telechargement dans `SOURCES.md` ;
-3. calculer la somme SHA-256 de chaque fichier ;
+3. calculer la somme SHA-256 du fichier ;
 4. remplacer `TODO_ETUDIANT_2` dans `config/dataset.env` ;
 5. indiquer la licence ou les conditions de reutilisation de ClinVar.
 
@@ -50,7 +50,6 @@ Interface obligatoire :
 ```text
 python3 scripts/analyze_genes.py \
   --submissions data/processed/hcm_submissions.tsv \
-  --variants data/raw/variant_summary_2026-10.txt.gz \
   --output-dir results \
   --top 15
 ```
@@ -67,9 +66,10 @@ Regles d'analyse :
    `Pathogenic/Likely pathogenic` ;
 3. si des soumissions HCM du meme `VariationID` portent des classifications
    incompatibles, exclure ce variant du classement principal ;
-4. lire `variant_summary` pour associer `VariationID` a `GeneSymbol` ;
-5. utiliser uniquement l'assemblage `GRCh38` ;
-6. compter chaque paire `VariationID`-gene une seule fois.
+4. normaliser `SubmittedGeneSymbol` (espaces, casse et valeurs manquantes) ;
+5. exclure du classement les variants sans symbole de gene exploitable ;
+6. compter chaque paire `VariationID`-gene une seule fois, meme si plusieurs
+   laboratoires ont soumis le meme variant.
 
 Fichiers de sortie obligatoires :
 
