@@ -1,2 +1,2 @@
-URL_DU_DEPOT=A_COMPLETER
+URL_DU_DEPOT=https://github.com/ffmly/turbo-goggles.git
 COMMIT_FINAL=A_COMPLETER_APRES_VALIDATION
